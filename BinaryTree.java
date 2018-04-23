@@ -14,7 +14,7 @@ public class Main {
 			if(this.value>value) {//현재노드의 value와 파라미터 value의 값 비교
 				if(this.leftNode!=null) this.leftNode.add(value);//파라미터 value가 작으면 왼쪽자식노드 존재유무검사 자식이 있으면 왼쪽자식노드의 add재귀호출
 				else this.leftNode=new Node(value);	//없으면 노드생성후 추가
-			}else {//파라미터 value가 크면
+			}else if(this.value<value){//파라미터 value가 크면
 				if(this.rightNode!=null) this.rightNode.add(value);//오른쪽자식노드 존재유무검사 자식이 있으면 오른쪽노드의 add재귀호출 
 				else this.rightNode=new Node(value);//없으면 노드생성후 추가
 			}
@@ -81,7 +81,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		int[] a = { 5, 18, 1, 12, 7, 2, 14, 6, 9, 15 };
+		int[] a = { 5, 18, 1, 12, 7, 2, 14, 6, 9, 15};
 		Node root = new Node(10);
 		for (int i = 0; i < a.length; ++i)
 			root.add(a[i]);
