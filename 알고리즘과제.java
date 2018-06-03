@@ -88,7 +88,7 @@ public class Main {
 		int index=(start+end)/2;
 		
 		if(list.get(index).equals(value)) return true;
-		else if(list.get(index).compareTo(value)>0) return binarySearch(value,start,index-1);
+		else if(list.get(index).compareTo(value)<0) return binarySearch(value,start,index-1);
 		else return binarySearch(value,index+1,end);
 			
 		/*
@@ -97,7 +97,7 @@ public class Main {
 		while(start<=end) {
 			int index=(end+start)/2;
 			if(list.get(index).equals(value)) return true;
-			else if(list.get(index).compareTo(value)>0) end=index-1;
+			else if(list.get(index).compareTo(value)<0) end=index-1;
 			else start=index+1;
 		}
 		return false;*/
