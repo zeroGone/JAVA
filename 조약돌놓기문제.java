@@ -1,3 +1,5 @@
+﻿import java.util.Arrays;
+
 /* 3행 n열
  * 조약돌 놓기 문제
  *  
@@ -12,7 +14,13 @@ public class Main {
         { 11, 12,  7,  4, 8, -2,  9, 4 }};
 	
 	public static void main(String[] args) {
-		System.out.println(column_HighScore(3));
+		System.out.println(column_HighScore(7));
+		System.out.println(호출횟수);
+		
+		for(int i=0;i<8;i++) {
+			System.out.println(Arrays.toString(sum[i]));
+		}
+		
 	}
 	
 	//전체 점수를 구하는 메소드
@@ -25,12 +33,17 @@ public class Main {
 		}
 		return highScore;//최고 점수 리턴
 	}
-	
+	//동적프로그래밍을 위한 배열 
+	//각 행은 각 열들을 뜻하고 각 열은 배열의 열들의 패턴을 뜻함.
+	static int[][] sum = new int[8][4];
+	static int 호출횟수 =0;
 	
 	public static int entryScore(int c,int p) {
+		if(sum[c][p-1]!=0) return sum[c][p-1];//이미 저장되어있다면 그 값 리턴
+		++호출횟수;
 		int nowScore=pattern(c,p);//c열의 p 패턴 점수 
 		//종료조건 : 이전 단계가 없을 시 c열의 p 패턴 점수로 리턴
-		if(c==0) return nowScore;
+		if(c==0) return sum[c][p-1]=nowScore;
 		//현재단계
 		
 		int preHS=0;
@@ -39,7 +52,7 @@ public class Main {
 				preHS=entryScore(c-1,i);//2.이전열의 최고점수를 구함
 			}
 		}
-		return preHS+nowScore;
+		return sum[c][p-1]=preHS+nowScore;
 	}
 	
 	//파라미터로 받은 c열의 p 패턴의 점수를 구하여 리턴하는 메소드
