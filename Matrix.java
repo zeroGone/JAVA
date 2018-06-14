@@ -18,42 +18,40 @@ public class Matrix {
 		return a[0].length;
 	}
 
-	public Matrix add(Matrix other) throws Exception {//다른 행렬과 더하는 메소드
-		if(this.columnLength()!=other.columnLength()||this.rowLength()!=other.rowLength()) throw new Exception("행렬의 전체 크기가 다름");
+	public static Matrix add(Matrix m1, Matrix m2) throws Exception {//다른 행렬과 더하는 메소드
+		if(m1.columnLength()!=m2.columnLength()||m1.rowLength()!=m2.rowLength()) throw new Exception("행렬의 크기가 다름");
 		else {
-			int[][] array=new int[this.columnLength()][other.rowLength()];
-			Matrix temp = new Matrix(array);
-			for(int i=0; i<a.length; i++) {
-				for(int j=0; j<a[0].length; j++) 
-					temp.a[i][j]=this.a[i][j]+other.a[i][j];
+			for(int i=0; i<m1.a.length; i++) {
+				for(int j=0; j<m1.a[0].length; j++) 
+					m1.a[i][j]+=m2.a[i][j];
 			}
+			Matrix temp = new Matrix(m1.a);
 			return temp;
 		}
 	}
 	
-	public Matrix subtract(Matrix other) throws Exception {//다른 행렬과 빼는 메소드
-		if(this.columnLength()!=other.columnLength()||this.rowLength()!=other.rowLength()) throw new Exception("행렬의 전체 크기가 다름");
+	public static Matrix subtract(Matrix m1, Matrix m2) throws Exception {//다른 행렬과 더하는 메소드
+		if(m1.columnLength()!=m2.columnLength()||m1.rowLength()!=m2.rowLength()) throw new Exception("행렬의 크기가 다름");
 		else {
-			int[][] array=new int[this.columnLength()][other.rowLength()];
-			Matrix temp = new Matrix(array);
-			for(int i=0; i<a.length; i++) {
-				for(int j=0; j<a[0].length; j++) 
-					temp.a[i][j]=this.a[i][j]-other.a[i][j];
+			for(int i=0; i<m1.a.length; i++) {
+				for(int j=0; j<m1.a[0].length; j++) 
+					m1.a[i][j]-=m2.a[i][j];
 			}
+			Matrix temp = new Matrix(m1.a);
 			return temp;
 		}
 	}
 	
-	public Matrix multiply(Matrix other) throws Exception {
-		if(this.rowLength()!=other.columnLength()) throw new Exception("곱할 수 없음");
+	public static Matrix multiply(Matrix m1, Matrix m2) throws Exception {
+		if(m1.columnLength()!=m2.rowLength()) throw new Exception("곱할 수 없음");
 		else {
-			int[][] array=new int[this.columnLength()][other.rowLength()];
+			int[][] array=new int[m1.columnLength()][m2.rowLength()];
 			Matrix temp = new Matrix(array);
 			for(int z=0; z<temp.columnLength(); z++) {
 				int value = 0;
-				for(int i=0; i<a.length; i++) {
-					for(int j=0; j<a[0].length; j++) {
-						value+=a[z][j]*other.a[j][i];
+				for(int i=0; i<m1.columnLength(); i++) {
+					for(int j=0; j<m1.rowLength(); j++) {
+						value+=m1.a[z][j]*m2.a[j][i];
 					}
 					temp.a[z][i]=value;
 					value=0;
