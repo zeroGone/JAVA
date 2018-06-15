@@ -5,17 +5,26 @@ import java.util.Objects;
 public class Matrix {
 	int a[][];
 	final int EMPTY = 0;
+	int row, col;
 	
 	public Matrix(int a[][]) {
 		this.a=a;
+		this.col=a[0].length;
+		this.row=a.length;
 	}
 	
+     public Matrix(int row, int col) {
+         this.row = row;
+         this.col = col;
+     }
+
+
 	public int columnLength() {
-		return a.length;
+		return col;
 	}
 	
 	public int rowLength() {
-		return a[0].length;
+		return row;
 	}
 
 	public static Matrix add(Matrix m1, Matrix m2) throws Exception {//다른 행렬과 더하는 메소드
@@ -60,6 +69,23 @@ public class Matrix {
 			return temp;
 		}
 	}
+	
+	//교수님이 짜신 곱셈횟수최소값 구하는 메소드
+	public static int[][] sum ;
+	public static int 곱셈횟수최소값(Matrix[] a, int start, int end) throws Exception {
+		if(sum==null) sum= new int[a.length][a.length];
+		if (sum[start][end]!=0) return sum[start][end];
+        if (start == end) return 0;
+        System.out.printf("(%d, %d) ", start, end);
+        int 최소값 = Integer.MAX_VALUE;
+        for (int middle = start; middle < end; ++middle) {
+            int 횟수 = 곱셈횟수최소값(a, start, middle);
+            횟수 += 곱셈횟수최소값(a, middle + 1, end);
+            횟수 += a[start].row * a[middle].col * a[end].col;
+            if (횟수 < 최소값) 최소값 = 횟수;
+        }
+        return  sum[start][end]=최소값;
+    }
 	
 	@Override 
 	public String toString() {
