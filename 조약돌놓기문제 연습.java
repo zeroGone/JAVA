@@ -10,7 +10,7 @@ public class Main {
 
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(maxSum2(a,7));
+		System.out.println(maxSum(a,7));
 	}
 	
 	static int[][] sum;
@@ -20,7 +20,7 @@ public class Main {
 		
 		int max=Integer.MIN_VALUE;
 		for(int p=1; p<5; p++) {
-			int value=sum(array,c,p);
+			int value=sum2(array,c,p);
 			if(max<value) max=value; 
 		}
 		
@@ -40,7 +40,7 @@ public class Main {
 		return sum[c][p];
 	}
 
-	static int maxSum2(int[][] array, int c) throws Exception {//반복문으로 구현
+	static int sum2(int[][] array, int c, int p) throws Exception {//반복문으로 구현
 		if(sum==null) sum=new int[array[0].length][5];
 		
 		for(int i=1; i<5; i++) {
@@ -59,13 +59,7 @@ public class Main {
 			}
 		}
 		
-		int max=Integer.MIN_VALUE;
-		for(int p=1; p<5; p++) {
-			int value=sum[c][p];
-			if(max<value) max=value; 
-		}
-		
-		return max;
+		return sum[c][p];
 	}
 	
 	static int pattern(int[][] array,int c,int p) throws Exception {
