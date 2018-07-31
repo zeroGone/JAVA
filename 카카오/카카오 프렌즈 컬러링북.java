@@ -40,13 +40,10 @@ public class Main {
 		int n = input.nextInt();
 		
 		int[][] picture = {
-				{1, 1, 1, 0}, 
-				{1, 1, 1, 0}, 
-				{0, 0, 0, 1}, 
-				{0, 0, 0, 1}, 
-				{0, 0, 0, 1}, 
-				{0, 0, 0, 1}
+				{0,1,1,0},
+				{1,1,1,1}
 		};
+		
 		check=new boolean[m][n];
 		System.out.println(Arrays.toString(solution(m,n,picture)));
 	}
@@ -55,10 +52,10 @@ public class Main {
 		if(picture[index1][index2]!=num||check[index1][index2]==true) return 0;
 		check[index1][index2]=true;
 		int area = 1; 
-		if(index1+1>=picture.length&&index2+1>=picture[0].length) return area;
-		else if(index1+1>=picture.length&&index2+1<picture[0].length) area+=area(picture,num,index1,index2+1);
-		else if(index1+1<picture.length&&index2+1>=picture[0].length) area+=area(picture,num,index1+1,index2);
-		else area+=(area(picture,num,index1,index2+1)+area(picture,num,1+index1,index2));
+		if(index2-1>=0) area+=area(picture,num,index1,index2-1);//왼쪽
+		if(index1-1>=0&&index2<picture[index1-1].length) area+=area(picture,num,index1-1,index2);//상
+		if(index2+1<picture[index1].length) area+=area(picture,num,index1,index2+1);//오른쪽
+		if(index1+1<picture.length&&index2<picture[index1+1].length) area+=area(picture,num,index1+1,index2);//하
 		return area;
 	}
 
@@ -66,8 +63,8 @@ public class Main {
 		int numberOfArea = 0;
 		int maxSizeOfOneArea = 0;
 		
-		for(int i=0; i<m; i++) {
-			for(int j=0; j<n; j++) {
+		for(int i=0; i<picture.length; i++) {
+			for(int j=0; j<picture[i].length; j++) {
 				if(check[i][j]==false&&picture[i][j]!=0) {
 					int area=area(picture,picture[i][j],i,j);
 					if(area>0) numberOfArea++;
@@ -81,6 +78,4 @@ public class Main {
 		answer[1] = maxSizeOfOneArea;
 		return answer;
 	}
-	
-	
 }
