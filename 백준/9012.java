@@ -34,14 +34,18 @@ public class Main {
 		boolean[] check = new boolean[T];
 		for(int i=0; i<cases.length; i++) {
 			String value=cases[i];
-			int count1 = 0;
-			int count2 = 0;
+			
+			int count = 0;
 			for(int j=0; j<value.length(); j++) {
 				char temp = value.charAt(j);
-				if(temp=='(') count1++;
-				else count2++;
+				if(temp=='(') count++;
+				else {
+					count--;
+					if(count<0) break;
+				}
 			}
-			if(count1!=0&&count1==count2) check[i]=true;
+			
+			if(count==0) check[i]=true;
 		}
 		
 		for(boolean i:check) {
