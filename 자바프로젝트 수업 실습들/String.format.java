@@ -20,8 +20,7 @@ public class Main {
 
 		
 		for(int i=0; i<a1.length; i++) {
-			String s1 = String.format("%10s %10s %10s", a1[i], a2[i], a3[i] );
-			System.out.println(s1);
+			System.out.println(String.format("%10d %10.3f %10s", a1[i], a2[i], a3[i]));
 		}
 	
 	}
